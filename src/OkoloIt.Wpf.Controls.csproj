@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="OkoloIt.Collections" Version="1.0.0" />
+  </ItemGroup>
+
 </Project>
