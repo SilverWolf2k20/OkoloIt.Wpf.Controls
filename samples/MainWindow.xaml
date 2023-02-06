@@ -3,10 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:OkoloIt.Wpf.Controls.Samples"
+        xmlns:local="clr-namespace:OkoloIt.Wpf.Controls.Samples" 
+        xmlns:controls="clr-namespace:OkoloIt.Wpf.Controls;assembly=OkoloIt.Wpf.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" 
+        Height="450" 
+        Width="800">
     <Grid>
+        <controls:TreeListView x:Name="tlistProducts">
+            <controls:TreeListView.View>
+                <GridView>
+                    <GridView.Columns>
 
+                        <GridViewColumn Header="Имя">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <controls:TreeListViewItem/>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Возраст" 
+                                        DisplayMemberBinding="{Binding Age}"/>
+                    </GridView.Columns>
+                </GridView>
+            </controls:TreeListView.View>
+        </controls:TreeListView>
     </Grid>
 </Window>
