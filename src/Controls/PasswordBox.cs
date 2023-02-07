@@ -15,7 +15,7 @@ namespace OkoloIt.Wpf.Controls
         /// <summary>
         /// Настройка пароля.
         /// </summary>
-        public readonly DependencyProperty PasswordProperty =
+        public static readonly DependencyProperty PasswordProperty =
             DependencyProperty.Register(
                 nameof(Password),
                 typeof(SecureString),

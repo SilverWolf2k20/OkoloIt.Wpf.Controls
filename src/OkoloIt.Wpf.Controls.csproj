@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <Company>OkoloIT</Company>
     <Authors>https://vk.com/okolo_it_govnokoding</Authors>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <PackageProjectUrl>https://github.com/SilverWolf2k20/OkoloIt.Wpf.Controls</PackageProjectUrl>
     <PackageTags>wpf;controls;ui</PackageTags>
   </PropertyGroup>
