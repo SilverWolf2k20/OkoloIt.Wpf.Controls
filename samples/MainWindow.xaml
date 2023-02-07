@@ -8,46 +8,69 @@
         mc:Ignorable="d"
         Title="MainWindow" 
         Height="450" 
-        Width="800">
+        Width="600">
 
     <Window.DataContext>
         <local:Model />
     </Window.DataContext>
 
     <Grid>
-        <!--<controls:TreeListView x:Name="tlistProducts">
-            <controls:TreeListView.View>
-                <GridView>
-                    <GridView.Columns>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        
 
-                        <GridViewColumn Header="Имя">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <controls:TreeListViewItem/>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
+        <GroupBox Header="PasswordBox"
+                  Grid.Row="0">
+            <controls:PasswordBox HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Width="150"
+                                  Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Margin="10"/>
+        </GroupBox>
 
-                        <GridViewColumn Header="Возраст" 
-                                        DisplayMemberBinding="{Binding Age}"/>
-                    </GridView.Columns>
-                </GridView>
-            </controls:TreeListView.View>
-        </controls:TreeListView>-->
-        <controls:PasswordBox HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Width="150"
-                              Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <GroupBox Header="DashedBorder"
+                  Grid.Row="1">
+            <controls:DashedBorder Height="10"
+                                   Width="150"
+                                   BorderThickness="5"
+                                   BorderBrush="Black"
+                                   CornerRadius="5"
+                                   UseDashedBorder="True"
+                                   DashedBorderBrush="Red"
+                                   StrokeDashArray="3,1"
+                                   Margin="10">
+                
+            </controls:DashedBorder>
+        </GroupBox>
 
-        <Button VerticalAlignment="Top"
-                Width="120"
-                Height="20" 
-                Command="{Binding Click}"/>
+        <GroupBox Header="TreeListView"
+                  Grid.Row="2">
+            <!--<controls:TreeListView x:Name="tlistProducts">
+                <controls:TreeListView.View>
+                    <GridView>
+                        <GridView.Columns>
 
+                            <GridViewColumn Header="Имя">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:TreeListViewItem/>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-
+                            <GridViewColumn Header="Возраст" 
+                                            DisplayMemberBinding="{Binding Age}"/>
+                        </GridView.Columns>
+                    </GridView>
+                </controls:TreeListView.View>
+            </controls:TreeListView>-->
+        </GroupBox>
     </Grid>
 </Window>

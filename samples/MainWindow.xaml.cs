@@ -24,19 +24,18 @@ namespace OkoloIt.Wpf.Controls.Samples
                 new Node() { IsExpandable = true, Data = new User("Ivan 123", "11"), Level = 2 },
             };*/
         }
+    }
 
-        public class User
+    public class User
+    {
+        public User(string name, string age)
         {
-            public User(string name, string age)
-            {
-                Name = name;
-                Age = age;
-            }
-
-            public string Name { get; set; }
-            public string Age { get; set; }
+            Name = name;
+            Age = age;
         }
 
+        public string Name { get; set; }
+        public string Age { get; set; }
     }
 
     public class Model : INotifyPropertyChanged
@@ -114,7 +113,6 @@ namespace OkoloIt.Wpf.Controls.Samples
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-
         public bool CanExecute(object? parameter)
             => _canExecute == null || _canExecute(parameter);
 
@@ -126,5 +124,4 @@ namespace OkoloIt.Wpf.Controls.Samples
             _execute(parameter);
         }
     }
-
 }
