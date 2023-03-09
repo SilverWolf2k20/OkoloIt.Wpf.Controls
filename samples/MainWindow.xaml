@@ -54,7 +54,7 @@
                   Grid.Row="2">
 
             <Grid>
-                <controls:TreeListView x:Name="tree">
+                <controls:TreeListView ItemsSource="{Binding Nodes}">
                     <controls:TreeListView.View>
                         <GridView>
                             <GridView.Columns>
@@ -64,20 +64,14 @@
                                             <StackPanel Orientation="Horizontal">
 
                                                 <controls:TreeListView/>
-                                                <TextBlock Text="{Binding Data}"/>
+                                                <TextBlock Text="{Binding Data.Name}"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
 
-                                <GridViewColumn Header="Данные"
-                                                DisplayMemberBinding="{Binding Data}"/>
-
-                                <GridViewColumn Header="Данные"
-                                                DisplayMemberBinding="{Binding Data}"/>
-                                
-                                <GridViewColumn Header="Данные"
-                                                DisplayMemberBinding="{Binding Data}"/>
+                                <GridViewColumn Header="Возраст"
+                                                DisplayMemberBinding="{Binding Data.Age}"/>
                             </GridView.Columns>
                         </GridView>
                     </controls:TreeListView.View>

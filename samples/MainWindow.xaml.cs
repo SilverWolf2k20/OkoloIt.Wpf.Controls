@@ -12,6 +12,8 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
+using OkoloIt.Collections.Generic;
+
 namespace OkoloIt.Wpf.Controls.Samples
 {
     /// <summary>
@@ -20,16 +22,7 @@ namespace OkoloIt.Wpf.Controls.Samples
     public partial class MainWindow : Window
     {
         public MainWindow()
-        {
-            InitializeComponent();
-
-            tree.ItemsSource = new ObservableCollection<TreeListViewNode>() {
-                new TreeListViewNode() { Data = "123423-2354254-345235434", Level= 1 },
-                new TreeListViewNode() { Data = "223423-2354254-345235434", Level= 2 },
-                new TreeListViewNode() { Data = "323423-2354254-345235434", Level= 3 },
-                new TreeListViewNode() { Data = "423423-2354254-345235434", Level= 4 },
-            };
-        }
+            => InitializeComponent();
     }
 
     public class User
@@ -56,43 +49,36 @@ namespace OkoloIt.Wpf.Controls.Samples
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private SecureString _password;
+        private ITreeNode<User> _nodes;
+
+        public ITreeNode<User> Nodes {
+            get => _nodes;
+            set {
+                _nodes = value;
+                OnPropertyChanged(nameof(Nodes));
+            }
+        }
 
         public Model()
         {
             _password = new SecureString();
-            Click = new Command(OnClick);
 
-            /*_nodes = new() {
-                new Node
-                {
-                    User = new User("Вика", 19),
-                    Nodes = new ObservableCollection<Node>
-                    {
-                        new Node { User = new User("Катя", 7), IsRed = true },
-                        new Node { User = new User("Денис", 23) },
-                        new Node {
-                            User = new User("Яна", 30),
-                            Nodes = new ObservableCollection<Node> {
-                                new Node { User = new User("Виталик", 15) },
-                                new Node { User = new User("Антон", 31), IsRed = true },
-                                new Node { User = new User("Ира", 32), IsRed = true },
-                                new Node { User = new User("Аня", 18) },
-                            }
-                        }
-                    }
-                },
-                new Node {
-                    User = new User("Лера", 20),
-                    Nodes = new ObservableCollection<Node> {
-                        new Node { User = new User("Петя", 9) },
-                        new Node { User = new User("Вася", 24), IsRed = true },
-                        new Node { User = new User("Серега", 17) }
-                    }
-                },
-                new Node { User = new User("Коля", 15), IsRed = true },
-                new Node { User = new User("Кирилл", 11) },
-                new Node { User = new User("Иван", 10) }
-            };*/
+            TreeNode<User> tree1 = new(new User("Иван", 12));
+
+            TreeNode<User> node1 = new(new User("Николай", 11), tree1);
+
+            node1.AddNode(new TreeNode<User>(new User("Оля", 14), node1));
+            node1.AddNode(new TreeNode<User>(new User("Виктор", 10), node1));
+            node1.AddNode(new TreeNode<User>(new User("Вика", 16), node1));
+
+            TreeNode<User> node2 = new(new User("Сеня", 16), tree1);
+
+            node2.AddNode(new TreeNode<User>(new User("Петя", 16), node2));
+
+            tree1.AddNode(node1);
+            tree1.AddNode(node2);
+
+            _nodes = tree1;
         }
 
         public SecureString Password {
@@ -102,22 +88,6 @@ namespace OkoloIt.Wpf.Controls.Samples
                 OnPropertyChanged(nameof(Password));
             }
         }
-
-        private void OnClick(object? sender)
-        {
-            Trace.WriteLine($"[PBOX]{ConvertToString(Password)}");
-
-            var password = new SecureString();
-
-            password.AppendChar('0');
-            password.AppendChar('1');
-            password.AppendChar('2');
-            password.AppendChar('3');
-
-            Password = password;
-        }
-
-        public ICommand Click { get; init; }
 
         public void OnPropertyChanged(string propertyName)
            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

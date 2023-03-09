@@ -4,11 +4,48 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.ComponentModel;
+using System.Collections;
+using OkoloIt.Collections;
 
 namespace OkoloIt.Wpf.Controls
 {
     public class TreeListView : ListView
     {
+        public static new readonly DependencyProperty ItemsSourceProperty =
+            DependencyProperty.Register(
+                nameof(ItemsSource),
+                typeof(IEnumerable),
+                typeof(TreeListView),
+                new PropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChange))
+            );
+
+        public new IEnumerable ItemsSource {
+            get { return (IEnumerable)GetValue(ItemsSourceProperty); }
+            set { SetValue(ItemsSourceProperty, value); }
+        }
+
+        private static void OnItemsSourceChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is not TreeListView treeListView || e.NewValue is not ITreeNode node)
+                return;
+
+            treeListView.GetNode(treeListView.Items, node);
+        }
+
+        private void GetNode(ItemCollection items, ITreeNode node)
+        {
+            foreach (var child in node) {
+                if (child is not ITreeNode treeNode)
+                    continue;
+
+                var newNode = new TreeListViewNode() { Data = treeNode.GetData(), Level = treeNode.Level };
+                items.Add(newNode);
+
+                if (treeNode.IsLeaf == false)
+                    GetNode(items, treeNode);
+            }
+        }
+
         protected override DependencyObject GetContainerForItemOverride()
             => new TreeListViewItem();
 
@@ -17,10 +54,10 @@ namespace OkoloIt.Wpf.Controls
 
         protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
         {
-            if (element is not TreeListViewItem ti || item is not TreeListViewNode node)
+            if (element is not TreeListViewItem treeItem || item is not TreeListViewNode node)
                 return;
 
-            ti.Node = item as TreeListViewNode;
+            treeItem.Node = item as TreeListViewNode;
             base.PrepareContainerForItemOverride(element, node);
         }
 
