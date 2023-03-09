@@ -38,7 +38,12 @@ namespace OkoloIt.Wpf.Controls
                 if (child is not ITreeNode treeNode)
                     continue;
 
-                var newNode = new TreeListViewNode() { Data = treeNode.GetData(), Level = treeNode.Level };
+                var newNode = new TreeListViewNode() { 
+                    Data = treeNode.GetData(), 
+                    Level = treeNode.Level,
+                    IsExpandable = treeNode.IsLeaf == false
+                };
+
                 items.Add(newNode);
 
                 if (treeNode.IsLeaf == false)
@@ -75,9 +80,16 @@ namespace OkoloIt.Wpf.Controls
         private const double IndentSize = 19.0;
 
         public object Convert(object o, Type type, object parameter, CultureInfo culture)
-        {
-            return new Thickness((int)o * IndentSize, 0, 0, 0);
-        }
+            => new Thickness((int)o * IndentSize, 0, 0, 0);
+
+        public object ConvertBack(object o, Type type, object parameter, CultureInfo culture)
+            => DependencyProperty.UnsetValue;
+    }
+
+    public class CanExpandConverter : IValueConverter
+    {
+        public object Convert(object o, Type type, object parameter, CultureInfo culture)
+            => (bool)o ? Visibility.Visible : Visibility.Hidden;
 
         public object ConvertBack(object o, Type type, object parameter, CultureInfo culture)
             => DependencyProperty.UnsetValue;
@@ -105,5 +117,6 @@ namespace OkoloIt.Wpf.Controls
     {
         public object Data { get; set; } = new object();
         public int Level { get; set; } = default;
+        public bool IsExpandable { get; set; }
     }
 }

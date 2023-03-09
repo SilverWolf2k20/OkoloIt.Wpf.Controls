@@ -63,22 +63,30 @@ namespace OkoloIt.Wpf.Controls.Samples
         {
             _password = new SecureString();
 
-            TreeNode<User> tree1 = new(new User("Иван", 12));
+            TreeNode<User> tree = new(new User("Иван", 12));
 
-            TreeNode<User> node1 = new(new User("Николай", 11), tree1);
+            TreeNode<User> node1 = new(new User("Николай", 11), tree);
 
             node1.AddNode(new TreeNode<User>(new User("Оля", 14), node1));
             node1.AddNode(new TreeNode<User>(new User("Виктор", 10), node1));
+
+            TreeNode<User> node11 = new(new User("Катя", 17), node1);
+
+            node11.AddNode(new TreeNode<User>(new User("Андрей", 15), node11));
+            node11.AddNode(new TreeNode<User>(new User("Стас", 20), node11));
+
+            node1.AddNode(node11);
+
             node1.AddNode(new TreeNode<User>(new User("Вика", 16), node1));
 
-            TreeNode<User> node2 = new(new User("Сеня", 16), tree1);
+            TreeNode<User> node2 = new(new User("Сеня", 16), tree);
 
             node2.AddNode(new TreeNode<User>(new User("Петя", 16), node2));
 
-            tree1.AddNode(node1);
-            tree1.AddNode(node2);
+            tree.AddNode(node1);
+            tree.AddNode(node2);
 
-            _nodes = tree1;
+            _nodes = tree;
         }
 
         public SecureString Password {

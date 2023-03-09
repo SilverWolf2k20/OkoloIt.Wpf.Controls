@@ -4,6 +4,7 @@
     xmlns:local="clr-namespace:OkoloIt.Wpf.Controls">
 
     <local:LevelToIndentConverter x:Key="LevelToIndentConverter" />
+    <local:CanExpandConverter x:Key="CanExpandConverter" />
 
     <Style x:Key="ExpandCollapseToggleStyle" 
            TargetType="{x:Type ToggleButton}">
@@ -81,6 +82,7 @@
                     <ToggleButton x:Name="Expander"
                                   Style="{StaticResource ExpandCollapseToggleStyle}"
                                   Margin="{Binding Node.Level, Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type local:TreeListViewItem}}}"
+                                  Visibility="{Binding Node.IsExpandable, Converter={StaticResource CanExpandConverter},RelativeSource={RelativeSource AncestorType={x:Type local:TreeListViewItem}}}"
                                   />
                 </ControlTemplate>
             </Setter.Value>
