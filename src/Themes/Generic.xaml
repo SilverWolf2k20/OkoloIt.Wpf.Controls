@@ -3,20 +3,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:OkoloIt.Wpf.Controls">
 
-    <Style x:Key="MyStyle" TargetType="local:TreeListView">
-        <Setter Property="Background" Value="Aqua"/>
-    </Style>
-    
+    <local:LevelToIndentConverter x:Key="LevelToIndentConverter" />
+
     <Style x:Key="ExpandCollapseToggleStyle" 
            TargetType="{x:Type ToggleButton}">
 
-        <Setter Property="Focusable" 
+        <Setter Property="Focusable"
                 Value="False" />
 
-        <Setter Property="Width" 
+        <Setter Property="Width"
                 Value="19" />
 
-        <Setter Property="Height" 
+        <Setter Property="Height"
                 Value="13" />
 
         <Setter Property="Template">
@@ -75,18 +73,15 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-    <local:LevelToIndentConverter x:Key="LevelToIndentConverter" />
-    <local:CanExpandConverter x:Key="CanExpandConverter" />
-
+    
     <Style TargetType="{x:Type local:TreeListView}">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:TreeListViewItem}">
+                <ControlTemplate TargetType="{x:Type local:TreeListView}">
                     <ToggleButton x:Name="Expander"
                                   Style="{StaticResource ExpandCollapseToggleStyle}"
                                   Margin="{Binding Node.Level, Converter={StaticResource LevelToIndentConverter},RelativeSource={RelativeSource AncestorType={x:Type local:TreeListViewItem}}}"
-                                  ClickMode="Press" />
+                                  />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

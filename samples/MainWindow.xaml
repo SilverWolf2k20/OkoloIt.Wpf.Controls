@@ -10,6 +10,10 @@
         Height="450" 
         Width="600">
 
+    <Window.Resources>
+        <local:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
+    </Window.Resources>
+    
     <Window.DataContext>
         <local:Model />
     </Window.DataContext>
@@ -19,9 +23,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        
-        
 
         <GroupBox Header="PasswordBox"
                   Grid.Row="0">
@@ -35,42 +38,52 @@
         <GroupBox Header="DashedBorder"
                   Grid.Row="1">
             <controls:DashedBorder Height="10"
+                                   Margin="10"
                                    Width="150"
-                                   BorderThickness="5"
-                                   BorderBrush="Black"
-                                   CornerRadius="5"
                                    UseDashedBorder="True"
-                                   DashedBorderBrush="Red"
-                                   StrokeDashArray="3,1"
-                                   Margin="10">
-                
+                                   BorderThickness="2"
+                                   DashedBorderBrush="Black"
+                                   StrokeDashArray="2,1"
+                                   BorderBrush="Red"
+                                   CornerRadius="5">
+
             </controls:DashedBorder>
         </GroupBox>
 
         <GroupBox Header="TreeListView"
                   Grid.Row="2">
-            <!--<controls:TreeListView x:Name="tlistProducts">
-                <controls:TreeListView.View>
-                    <GridView>
-                        <GridView.Columns>
 
-                            <GridViewColumn Header="Имя">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <controls:TreeListViewItem/>
-                                            <TextBlock Text="{Binding Name}"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
+            <Grid>
+                <controls:TreeListView x:Name="tree">
+                    <controls:TreeListView.View>
+                        <GridView>
+                            <GridView.Columns>
+                                <GridViewColumn Header="Уровень" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
 
-                            <GridViewColumn Header="Возраст" 
-                                            DisplayMemberBinding="{Binding Age}"/>
-                        </GridView.Columns>
-                    </GridView>
-                </controls:TreeListView.View>
-            </controls:TreeListView>-->
+                                                <controls:TreeListView/>
+                                                <TextBlock Text="{Binding Data}"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Данные"
+                                                DisplayMemberBinding="{Binding Data}"/>
+
+                                <GridViewColumn Header="Данные"
+                                                DisplayMemberBinding="{Binding Data}"/>
+                                
+                                <GridViewColumn Header="Данные"
+                                                DisplayMemberBinding="{Binding Data}"/>
+                            </GridView.Columns>
+                        </GridView>
+                    </controls:TreeListView.View>
+                </controls:TreeListView>
+            </Grid>
         </GroupBox>
     </Grid>
 </Window>
+<!--SelectedValue="{Binding SelectedValue}"-->
